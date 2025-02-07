@@ -23,7 +23,7 @@ class Students extends Persons {
     }
 
     void display() {
-        System.out.println("Student: " + name + ", Age: " + age + ", ID: " + sID);
+        System.out.println("\nStudent:" + name + "\nAge: " + age + "\nID: " + sID);
     }
 
 }
@@ -38,7 +38,7 @@ class DivB1 extends Students {
 
     void display() {
         super.display();
-        System.out.println("Batch of student is: " + batch);
+        System.out.println("Batch: " + batch);
     }
 
 }
@@ -59,6 +59,7 @@ class QuickLearners extends DivB1 {
 
     double getGpa() {
         return gpa;
+        
     }
 
 }
@@ -71,19 +72,19 @@ public class Assign2 {
         int ch;
         int SearchId;
         boolean found = false;
-        System.out.println("\nEnter the total number of records:");
+        System.out.print("\nEnter the total number of records:");
         int record = sc.nextInt();
         QuickLearners[] ss = new QuickLearners[record];
         do {
             System.out.print(
-                    "1.INSERT\n2.DISPLAY\n3.SEARCH\n4.UPDATE\n5.SORT-GPA\n6.REMOVE\n7.AVG OF GPA\n8.EXIT\nEnter your choice: ");
+                    "\n\n1.INSERT\n2.DISPLAY\n3.SEARCH\n4.UPDATE\n5.SORT-GPA\n6.REMOVE\n7.AVG OF GPA\n8.EXIT\nEnter your choice: ");
             ch = sc.nextInt();
 
             switch (ch) {
 
                 case 1:
                     for (int i = 0; i < record; i++) {
-                        System.out.println("Enter record for student: " + (i + 1));
+                        System.out.println("\n\nEnter record for student: " + (i + 1));
                         System.out.print("Enter name: ");
                         sc.nextLine();
                         String name = sc.nextLine();
@@ -103,19 +104,28 @@ public class Assign2 {
                     break;
 
                 case 2:
-                    System.out.println("display");
+                    System.out.println("\n\nDisplaying records:");
                     for (int i = 0; i < record; i++) {
+                         if(ss[i]!=null)
+                         {
+                        try{
                         ss[i].display();
+                        }
+                        catch(Exception e)
+                        {
+                         System.out.println("Exception occured:"+e);
+                        }
+                        }
                     }
                     break;
 
                 case 3:
-                    System.out.println("Enter student id to search: ");
+                    System.out.print("\n\nEnter student id to search: ");
                     SearchId = sc.nextInt();
                     found = false;
                     for (int i = 0; i < record; i++) {
                         if (ss[i].sID == SearchId) {
-                            System.out.println("found: ");
+                            System.out.println("found");
                             ss[i].display();
                             found = true;
                         }
@@ -126,12 +136,12 @@ public class Assign2 {
                     break;
 
                 case 4:
-                    System.out.println("Enter student id to search: ");
+                    System.out.print("\n\nEnter student id to update: ");
                     SearchId = sc.nextInt();
                     found = false;
                     for (int i = 0; i < record; i++) {
                         if (ss[i].sID == SearchId) {
-                            System.out.println("found: ");
+                            System.out.println("found,now enter new details: ");
                             System.out.print("Enter name: ");
                             sc.nextLine();
                             String name = sc.nextLine();
@@ -157,7 +167,7 @@ public class Assign2 {
                     break;
 
                 case 5:
-                    System.out.println("Students sorted by GPA in descending order.");
+                    System.out.println("\n\nStudents sorted by GPA in descending order.");
                     for (int i = 0; i < record - 1; i++) {
                         for (int j = 0; j < record - i - 1; j++) {
                             if (ss[j].getGpa() < ss[j + 1].getGpa()) {
@@ -175,15 +185,17 @@ public class Assign2 {
 
                     break;
 
+
+
                 case 6:
-                    System.out.println("Enter student id to search: ");
+                    System.out.print("\n\nEnter student id to remove: ");
                     SearchId = sc.nextInt();
                     found = false;
                     for (int i = 0; i < record; i++) {
                         if (ss[i].sID == SearchId) {
                             System.out.println("found & removed ");
-                            ss[i] = null;
-
+                            if(ss[i]!=null){ ss[i].display();}
+                            ss[i] =null;
                             found = true;
                         }
                     }
@@ -191,17 +203,39 @@ public class Assign2 {
                         System.out.println("not found!");
                     }
                     break;
+                    
+                    
+                    
 
                 case 7:
                     double totalGpa = 0;
+                    int cnt=0;
                     for (int i = 0; i < record; i++) {
-                        totalGpa += ss[i].getGpa();
+                    
+                    if(ss[i]!=null)
+                    {
+                      totalGpa += ss[i].getGpa();
+                      cnt++;
                     }
-                    System.out.println("Average GPA: " + (totalGpa / record));
+                        
+                    }
+                    
+                    if(cnt>0)
+                    {
+                      System.out.println("\n\nAverage GPA: " + (totalGpa / record));
+                    }
+                    else
+                    {
+                     System.out.println("\n\nNo valid recored avialable!!");
+                    }
+                    
                     break;
 
+
+
+
                 case 8:
-                    System.out.println("Exiting from the code!!!!!");
+                    System.out.println("\n\nExiting from the code!!!!!");
                     break;
 
                 default:
